@@ -2,17 +2,18 @@ const { getRepository } = require('typeorm')
 
 const createInDB = async (schema, params) => {
   try {
-    const newUser = getRepository(schema).create(params)
-    await getRepository(schema).save(newUser)
+    const newData = getRepository(schema).create(params)
+    const data = await getRepository(schema).save(newData)
+    return data
   } catch(err) {
     console.log(err.message)
   }
 }
 
-const getUsersInDB = async (schema) => {
+const getInfoInDB = async (schema) => {
   try {
-    const users = await getRepository(schema).find()
-    return users
+    const data = await getRepository(schema).find()
+    return data
   } catch(err) {
     console.log(err.message)
   }
@@ -20,5 +21,5 @@ const getUsersInDB = async (schema) => {
 
 module.exports = {
   createInDB,
-  getUsersInDB
+  getInfoInDB
 }
