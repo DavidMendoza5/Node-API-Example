@@ -19,7 +19,39 @@ const getInfoInDB = async (schema) => {
   }
 }
 
+const getInfoById = async (schema, id) => {
+  try {
+    const data = await getRepository(schema).findOne(id)
+    return data
+  } catch(err) {
+    console.log(err.message)
+  }
+}
+
+const updateInfo = async (schema, data, new_info) => {
+  try {
+    await getRepository(schema).merge(data, new_info)
+    const new_data = await getRepository(schema).save(data)
+    return new_data
+  } catch(err) {
+    console.log(err.message)
+  }
+}
+
+const deleteInfo = async (schema, id) => {
+  try {
+    const info = await getRepository(schema).delete(id)
+    return info
+  } catch(err) {
+    console.log(err.message)
+  }
+}
+
+
 module.exports = {
   createInDB,
-  getInfoInDB
+  getInfoInDB,
+  getInfoById,
+  updateInfo,
+  deleteInfo
 }
